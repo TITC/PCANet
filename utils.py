@@ -31,6 +31,7 @@ def set_device(device_id):
 
     try:
         Device(device_id).use()
+        print("using gpu ",device_id," !")
     except CUDARuntimeError as e:
         print(e)
         return
