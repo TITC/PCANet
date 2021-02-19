@@ -49,14 +49,14 @@ def train(train_set):
     t2 = timeit.default_timer()
     
     train_time = t2 - t1
-    print("fit time comsumed:",train_time)
-    
+    print("fit time comsumed:",train_time/60," min")
+
     t1 = timeit.default_timer()
     X_train = pcanet.transform(images_train)
     t2 = timeit.default_timer()
 
     transform_time = t2 - t1
-    print("transform time comsumed:",transform_time)
+    print("transform time comsumed:",transform_time/60," min")
     print("Training the classifier")
 
     classifier = SVC(C=10)
