@@ -54,6 +54,7 @@ def components_to_filters(components, n_channels, filter_shape):
       it can be used as networks filters
     """
     n_filters = components.shape[0]
+    print("filter_shape:",filter_shape)
     return components.reshape(n_filters, n_channels, *filter_shape)
 
 
