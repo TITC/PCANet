@@ -61,6 +61,7 @@ def components_to_filters(components, n_channels, filter_shape):
 
 
 def output_shape(ys, xs):
+    print("len(ys), len(xs)：",len(ys), len(xs))
     return len(ys), len(xs)
 
 
@@ -289,6 +290,7 @@ class PCANet(object):
         return xp.vstack([bhist(image) for image in binary_images])
 
     def process_input(self, images):
+        print("images.shape:",images.shape)
         assert(np.ndim(images) >= 3)
         assert(images.shape[1:3] == self.image_shape)
         if np.ndim(images) == 3:
