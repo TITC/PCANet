@@ -70,9 +70,13 @@ def train(train_set):
 
 def test(pcanet, classifier, test_set):
     images_test, y_test = test_set
-
+    t1 = timeit.default_timer()
     X_test = pcanet.transform(images_test)
     y_pred = classifier.predict(X_test)
+    t2 = timeit.default_timer()
+
+    test_time = t2 - t1
+    print("test time comsumed:",test_time/60," min")
     return y_pred, y_test
 
 
