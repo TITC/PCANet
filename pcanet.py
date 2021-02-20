@@ -75,7 +75,7 @@ class Patches(object):
         # print("filter_shape:",filter_shape,",step_shape:",step_shape)
         self.image = image
         self.filter_shape = filter_shape
-        print("image.shape",image.shape)
+        # print("image.shape",image.shape)
         self.ys, self.xs = steps(image.shape[0:2], filter_shape, step_shape)
 
     @property
