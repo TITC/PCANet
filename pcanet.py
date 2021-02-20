@@ -317,7 +317,7 @@ class PCANet(object):
         
         for image in images:
             X = []
-            print("image shape in fit's for loop:",image.shape)
+            #print("image shape in fit's for loop:",image.shape)
             for channel in image:
                 patches = image_to_patch_vectors(
                     channel,
