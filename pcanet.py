@@ -71,6 +71,8 @@ class Patches(object):
 
         # should be either numpy.ndarray or cupy.ndarray
         self.ndarray = type(image)
+        print("self.ndarray",self.ndarray,",type(image)",type(image))
+        print("filter_shape:",filter_shape,",step_shape:",step_shape)
         self.image = image
         self.filter_shape = filter_shape
 
