@@ -86,6 +86,7 @@ class Patches(object):
         """
         fh, fw = self.filter_shape
         it = list(itertools.product(self.ys, self.xs))
+        # print("it:",it)
         patches = self.ndarray((len(it), fh, fw), dtype=self.image.dtype)
         for i, (y, x) in enumerate(it):
             patches[i, :, :] = self.image[y:y+fh, x:x+fw]
@@ -324,6 +325,7 @@ class PCANet(object):
                     self.filter_shape_l1,
                     self.step_shape_l1
                 )
+                
                 X.append(patches)
             patches = np.hstack(X)
             # patches.shape = (n_patches, n_patches * vector length)
