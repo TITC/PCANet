@@ -60,7 +60,11 @@ def train(train_set):
     print("Training the classifier")
 
     classifier = SVC(C=10)
+    t1 = timeit.default_timer()
     classifier.fit(X_train, y_train)
+    t2 = timeit.default_timer()
+    classifier_time = t2 - t1
+    print("classifier time comsumed:",classifier_time/60," min")
     return pcanet, classifier
 
 
