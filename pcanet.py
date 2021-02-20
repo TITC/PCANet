@@ -314,7 +314,7 @@ class PCANet(object):
         """
         images = self.process_input(images)
         # images.shape == (n_images, n_channels, y, x)
-
+        print("image shape in fit:",images.shape)
         for image in images:
             X = []
             for channel in image:
