@@ -52,7 +52,9 @@ def train(train_set):
     print("fit time comsumed:",train_time/60," min")
 
     t1 = timeit.default_timer()
+    print("images_train:",images_train.shape)
     X_train = pcanet.transform(images_train)
+    print("X_train transform:",X_train.shape)
     t2 = timeit.default_timer()
 
     transform_time = t2 - t1
