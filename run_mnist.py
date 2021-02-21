@@ -8,7 +8,7 @@ from sklearn.metrics import accuracy_score
 
 # avoid the odd behavior of pickle by importing under a different name
 import pcanet as net
-from utils import load_model, save_model, load_mnist, set_device
+from utils import load_model, save_model, load_mnist, set_device, pick
 
 
 parser = argparse.ArgumentParser(description="PCANet example")
@@ -81,7 +81,7 @@ def test(pcanet, classifier, test_set):
 
 
 train_set, test_set = load_mnist()
-
+train_set, test_set  = pick(train_set, test_set, 2, 2)
 
 if args.gpu >= 0:
     set_device(args.gpu)
