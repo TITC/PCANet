@@ -56,11 +56,11 @@ def train(train_set):
     X_train = pcanet.transform(images_train)
     print("X_train transform:",X_train.shape)
     t2 = timeit.default_timer()
-
+    
     transform_time = t2 - t1
     print("transform time comsumed:",transform_time/60," min")
     print("Training the classifier")
-
+    # X_train = images_train.reshape(images_train.shape[0],-1)
     classifier = SVC(C=10)
     t1 = timeit.default_timer()
     classifier.fit(X_train, y_train)
@@ -74,6 +74,7 @@ def test(pcanet, classifier, test_set):
     images_test, y_test = test_set
     t1 = timeit.default_timer()
     X_test = pcanet.transform(images_test)
+    # X_test = images_test.reshape(images_test.shape[0],-1)
     y_pred = classifier.predict(X_test)
     t2 = timeit.default_timer()
 
