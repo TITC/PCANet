@@ -6,8 +6,7 @@ try:
 except ImportError:
     import imp as importlib
 
-from chainer.datasets import get_mnist, get_cifar10
-from chainer.cuda import get_device
+from keras.datasets import mnist
 
 
 GPU_ENABLED = False
@@ -31,7 +30,7 @@ def set_device(device_id):
 
     try:
         Device(device_id).use()
-        print("using gpu ",device_id," !")
+        print("using gpu ", device_id, " !")
     except CUDARuntimeError as e:
         print(e)
         return
@@ -50,16 +49,7 @@ def gpu_enabled():
     return GPU_ENABLED
 
 
-def reshape_dataset(train, test):
-    def channels_last(X):
-        X = np.swapaxes(X, 1, 2)
-        X = np.swapaxes(X, 2, 3)
-        return X
 
-    X_train, y_train = train._datasets[0], train._datasets[1]
-    X_test, y_test = test._datasets[0], test._datasets[1]
-    X_train, X_test = channels_last(X_train), channels_last(X_test)
-    return ((X_train, y_train), (X_test, y_test))
 
 
 def save_model(model, filename):
@@ -85,10 +75,21 @@ def load_cifar():
     train, test = get_cifar10(ndim=3)
     return reshape_dataset(train, test)
 
+def reshape_dataset(train, test):
+    def channels_last(X):
+        X = np.swapaxes(X, 1, 2)
+        X = np.swapaxes(X, 2, 3)
+        return X
+
+    X_train, y_train = train._datasets[0], train._datasets[1]
+    X_test, y_test = test._datasets[0], test._datasets[1]
+    X_train, X_test = channels_last(X_train), channels_last(X_test)
+    return ((X_train, y_train), (X_test, y_test))
+
 
 def load_mnist():
-    train, test = get_mnist(ndim=3)
-    return reshape_dataset(train, test)
+    train, test = mnist.load_data()
+    return train, test
 
 
 def concatenate_dicts(*dicts):

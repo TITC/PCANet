@@ -17,7 +17,7 @@ parser.add_argument("--gpu", "-g", type=int, default=-1,
 
 subparsers = parser.add_subparsers(dest="mode",
                                    help='Choice of train/test mode')
-subparsers.required = True
+subparsers.required = False
 train_parser = subparsers.add_parser("train")
 train_parser.add_argument("--out", "-o", default="result",
                           help="Directory to output the result")
@@ -28,6 +28,7 @@ test_parser.add_argument("--pretrained-model", default="result",
                          help="Directory containing the trained model")
 
 args = parser.parse_args()
+
 
 
 def train(train_set):
@@ -84,14 +85,12 @@ def test(pcanet, classifier, test_set):
 
 
 train_set, test_set = load_mnist()
-train_set, test_set  = pick(train_set, test_set, 2, 2)
-
-if args.gpu >= 0:
-    set_device(args.gpu)
+# train_set, test_set  = pick(train_set, test_set, 2, 2)
 
 
-if args.mode == "train":
+def run_train():
     print("Training the model...")
+    
     pcanet, classifier = train(train_set)
 
     if not isdir(args.out):
@@ -101,7 +100,9 @@ if args.mode == "train":
     save_model(classifier, join(args.out, "classifier.pkl"))
     print("Model saved")
 
-elif args.mode == "test":
+
+def run_test():
+
     pcanet = load_model(join(args.pretrained_model, "pcanet.pkl"))
     classifier = load_model(join(args.pretrained_model, "classifier.pkl"))
 
@@ -109,3 +110,15 @@ elif args.mode == "test":
 
     accuracy = accuracy_score(y_test, y_pred)
     print("accuracy: {}".format(accuracy))
+
+
+if __name__ == "__main__":
+    # args.mode = "train"
+    # args.out = "./result"
+    if args.gpu >= 0:
+        set_device(args.gpu)
+
+    if args.mode == "train":
+        run_train()
+    elif args.mode == "test":
+        run_test()

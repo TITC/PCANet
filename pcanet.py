@@ -1,7 +1,7 @@
 # [the original paper](https://arxiv.org/abs/1404.3606)
 
 import itertools
-
+import chainer
 from chainer.cuda import to_gpu, to_cpu
 from chainer.functions import convolution_2d
 
@@ -300,6 +300,7 @@ class PCANet(object):
             # forcibly convert to multi-channel images
             images = atleast_4d(images)
         images = to_channels_first(images)
+        images = images.astype(float)
         return images
 
     def fit(self, images):
@@ -336,7 +337,7 @@ class PCANet(object):
             n_channels=images.shape[1],
             filter_shape=self.filter_shape_l1,
         )
-
+        # images = images.astype(float)
         if gpu_enabled():
             images = to_gpu(images)
             filters_l1 = to_gpu(filters_l1)
